@@ -1,4 +1,4 @@
-# drawtool
+# drawtools
 
 ## Project setup
 ```
