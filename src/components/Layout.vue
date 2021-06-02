@@ -1,6 +1,6 @@
 <template>
   <div class="layout">
-    <canvas id="canvas"></canvas>
+    <MyCanvas />
     <div class="tools">
       <div class="tool-category">
         <i
@@ -134,6 +134,7 @@
 </template>
 
 <script>
+import MyCanvas from "./MyCanvas.vue";
 export default {
   name: "Layout",
   data() {
@@ -147,6 +148,7 @@ export default {
       showShapeSelector: false,
     };
   },
+  components: { MyCanvas },
   methods: {
     changeColor(newVal) {
       localStorage.brushColor = newVal;
