@@ -1,24 +1,14 @@
 # drawtools
 
-## Project setup
-```
-npm install
-```
+一个基于原生 HTML canvas 的面向对象绘图框架。
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+已经实现的功能：
+- 绘制基本图元：矩形（正方形）、椭圆（圆形）、菱形、平行四边形
+- 拖拽任意图元的位置
+- 撤销上一步
+  
+todo：
+- 单次选中多个图元一起操作
+- 图元缩放
+- 图元旋转？
+- ......

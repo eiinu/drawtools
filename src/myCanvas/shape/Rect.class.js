@@ -1,10 +1,12 @@
+import ShapeObject from './ShapeObject.class.js'
 class Rect extends ShapeObject {
     constructor(left, right, top, bottom) {
         super(left, right, top, bottom);
         this.shape = 'rect';
     }
     draw() {
-        if (this.fillStyle) {
+        super.draw();
+        if (this.fill) {
             this.ctx.fillRect(this.left, this.top, this.right - this.left, this.bottom - this.top);
         }
         else {
@@ -12,3 +14,4 @@ class Rect extends ShapeObject {
         }
     }
 }
+export default Rect;
