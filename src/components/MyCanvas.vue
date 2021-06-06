@@ -3,9 +3,12 @@
     id="Canvas"
     width="800"
     height="600"
-    @mousedown="canvasClicked($event)"
+    @mousedown="canvasDown($event)"
     @mousemove="canvasMove($event)"
     @mouseup="canvasUp($event)"
+    @mouseleave="canvasLeave($event)"
+    @keydown="shiftDown($event)"
+    @keypress="shiftUp($event)"
   ></canvas>
 </template>
 <script>
@@ -20,32 +23,38 @@ export default {
   },
   mounted() {
     let canvas = document.getElementById("Canvas");
-    let ctx = canvas.getContext("2d");
-    let myCanvas = new MyCanvas(ctx);
+    let myCanvas = new MyCanvas(canvas);
+    window.myCanvas = myCanvas;
     this.myCanvas = myCanvas;
+    this.myCanvas.setColor("red");
     myCanvas.createRect(0, 100, 0, 100);
+    this.myCanvas.setColor("green");
     myCanvas.createEllipse(200, 300, 200, 300);
+    this.myCanvas.setColor("blue");
     myCanvas.createParallelogram(400, 500, 400, 500);
-    myCanvas.displayList.forEach((item) => {
-      item.fill = true;
-    });
-    myCanvas.displayList[0].setColor("red");
-    myCanvas.displayList[1].setColor("green");
-    myCanvas.displayList[2].setColor("blue");
+    myCanvas.createText(200, 300, 400, 500, "测试");
+    myCanvas.createLine(400, 500, 200, 300, false);
+    myCanvas.createLine(400, 500, 200, 300, true);
     myCanvas.drawAll();
   },
   methods: {
-    canvasClicked(event) {
+    canvasDown(event) {
       this.myCanvas.mouseDown(event.clientX, event.clientY);
-      this.myCanvas.drawAll();
     },
     canvasMove(event) {
       this.myCanvas.mouseMove(event.clientX, event.clientY);
-      this.myCanvas.drawAll();
     },
     canvasUp(event) {
       this.myCanvas.mouseUp(event.clientX, event.clientY);
-      this.myCanvas.drawAll();
+    },
+    canvasLeave(event) {
+      this.myCanvas.mouseLeave(event.clientX, event.clientY);
+    },
+    shiftDown(event) {
+      console.log(event);
+    },
+    shiftUp(event) {
+      console.log(event);
     },
   },
 };

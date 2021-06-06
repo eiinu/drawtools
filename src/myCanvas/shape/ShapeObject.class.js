@@ -48,6 +48,7 @@ class ShapeObject {
     setColor(color) {
         this.color = color;
     }
+    // (x,y) 是否在该图元的 RectFrame 内部
     catch(x, y) {
         if (x > this.left && x < this.right && y > this.top && y < this.bottom) {
             return true;
@@ -56,11 +57,34 @@ class ShapeObject {
             return false;
         }
     }
-    setRect(left, right, top, bottom) {
+    catchedByRect(left, right, top, bottom) {
+        if (this.right > left && this.left < right && this.bottom > top && this.top < bottom) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    catchRightBottom(x, y) {
+        if (Math.abs(x - this.right) <= 15 && Math.abs(y - this.bottom) <= 15) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    // 重新设置图元大小
+    setFrame(left, right, top, bottom) {
         this.left = left;
         this.right = right;
         this.top = top;
         this.bottom = bottom;
+    }
+    setFrameAdd(left, right, top, bottom) {
+        this.left += left;
+        this.right += right;
+        this.top += top;
+        this.bottom += bottom;
     }
 }
 export default ShapeObject;

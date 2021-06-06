@@ -17,7 +17,7 @@
           @click="toolStatus = 'draw'"
         ></i>
       </div>
-      <i class="tool-card el-icon-back" hover="hover"></i>
+      <i class="tool-card el-icon-back" hover="hover" @click="undo()"></i>
       <i class="tool-card"
         ><el-color-picker
           v-model="currentColor"
@@ -152,6 +152,9 @@ export default {
   methods: {
     changeColor(newVal) {
       localStorage.brushColor = newVal;
+    },
+    undo() {
+      window.myCanvas.restore();
     },
   },
 };

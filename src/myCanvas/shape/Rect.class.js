@@ -13,5 +13,12 @@ class Rect extends ShapeObject {
             this.ctx.strokeRect(this.left, this.top, this.right - this.left, this.bottom - this.top);
         }
     }
+    clone(obj) {
+        let res = new Rect(obj.left, obj.right, obj.top, obj.bottom);
+        res.ctx = obj.ctx;
+        res.fill = obj.fill;
+        res.color = obj.color;
+        return res;
+    }
 }
 export default Rect;

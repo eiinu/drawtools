@@ -20,5 +20,13 @@ class Ellipse extends ShapeObject {
             this.ctx.stroke();
         }
     }
+    clone(obj) {
+        let res = new Ellipse(obj.left, obj.right, obj.top, obj.bottom);
+        res.shape = obj.shape;
+        res.ctx = obj.ctx;
+        res.fill = obj.fill;
+        res.color = obj.color;
+        return res;
+    }
 }
 export default Ellipse;

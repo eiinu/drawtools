@@ -19,5 +19,12 @@ class Parallelogram extends ShapeObject {
             this.ctx.stroke();
         }
     }
+    clone(obj) {
+        let res = new Parallelogram(obj.left, obj.right, obj.top, obj.bottom);
+        res.ctx = obj.ctx;
+        res.fill = obj.fill;
+        res.color = obj.color;
+        return res;
+    }
 }
 export default Parallelogram;
