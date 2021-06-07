@@ -166,10 +166,10 @@ class MyCanvas {
         let mouseMoveFunc = mouseMove.bind(this);
         let mouseUpFunc = mouseUp.bind(this);
         // 绑定四种基本操作
-        this.window.addEventListener('mousedown', mouseDownFunc);
-        this.window.addEventListener('mousemove', mouseMoveFunc);
-        this.window.addEventListener('mouseup', mouseUpFunc);
-        this.window.addEventListener('mouseleave', mouseUpFunc);
+        this.canvas.addEventListener('mousedown', mouseDownFunc);
+        this.canvas.addEventListener('mousemove', mouseMoveFunc);
+        this.canvas.addEventListener('mouseup', mouseUpFunc);
+        this.canvas.addEventListener('mouseleave', mouseUpFunc);
     }
     save() {
         console.log('save', this.canvasStack.length);
