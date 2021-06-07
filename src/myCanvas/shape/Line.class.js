@@ -30,5 +30,10 @@ class Line extends ShapeObject {
         res.color = obj.color;
         return res;
     }
+    toJson() {
+        let obj = super.toJson();
+        obj.direction = this.direction;
+        return obj;
+    }
 }
 export default Line;

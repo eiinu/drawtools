@@ -127,7 +127,10 @@
       <i
         class="tool-card el-icon-printer"
         hover="hover"
-        @click="toolStatus = 'select'"
+        @click="
+          toolStatus = 'select';
+          save();
+        "
       ></i>
     </div>
   </div>
@@ -155,6 +158,9 @@ export default {
     },
     undo() {
       window.myCanvas.restore();
+    },
+    save() {
+      window.myCanvas.toJson();
     },
   },
 };

@@ -16,16 +16,17 @@ export default {
     let myCanvas = new MyCanvas(canvas);
     window.myCanvas = myCanvas;
     this.myCanvas = myCanvas;
-    this.myCanvas.setColor("red");
+    myCanvas.setColor("red");
     myCanvas.createRect(0, 100, 0, 100);
-    this.myCanvas.setColor("green");
+    myCanvas.setColor("green");
     myCanvas.createEllipse(200, 300, 200, 300);
-    this.myCanvas.setColor("blue");
+    myCanvas.setColor("blue");
     myCanvas.createParallelogram(400, 500, 400, 500);
     myCanvas.createText(200, 300, 400, 500, "测试");
     myCanvas.createLine(400, 500, 200, 300, false);
     myCanvas.createLine(400, 500, 200, 300, true);
     myCanvas.drawAll();
+    console.log(myCanvas.displayList[1].toJson());
   },
 };
 </script>

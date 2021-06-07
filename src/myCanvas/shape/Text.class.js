@@ -24,5 +24,10 @@ class Text extends ShapeObject {
         res.color = obj.color;
         return res;
     }
+    toJson() {
+        let obj = super.toJson();
+        obj.text = this.text;
+        return obj;
+    }
 }
 export default Text;

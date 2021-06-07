@@ -86,5 +86,16 @@ class ShapeObject {
         this.top += top;
         this.bottom += bottom;
     }
+    toJson() {
+        let obj = {};
+        obj.left = this.left;
+        obj.right = this.right;
+        obj.top = this.top;
+        obj.bottom = this.bottom;
+        obj.shape = this.shape;
+        obj.fill = this.fill;
+        obj.color = this.color;
+        return obj;
+    }
 }
 export default ShapeObject;

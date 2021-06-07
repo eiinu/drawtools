@@ -192,6 +192,34 @@ class MyCanvas {
             this.drawAll();
         }
     }
+    toJson() {
+        function downloadFile(blobUrl, filename) {
+            const ele = document.createElement('a');
+            ele.download = filename;
+            ele.style.display = 'none';
+            ele.href = blobUrl;
+            document.body.appendChild(ele);
+            ele.click();
+            document.body.removeChild(ele);
+        }
+        if (this.displayList.length > 0) {
+            let obj = {};
+            obj.size = this.displayList.length - 1;
+            obj.data = [];
+            this.displayList.forEach((item) => {
+                let json = item.toJson();
+                if (json) {
+                    obj.data.push(json);
+                }
+            })
+            const blobContent = new Blob(
+                [JSON.stringify(obj, null, 2)], {
+                type: 'application/json'
+            });
+            const blobUrl = this.window.URL.createObjectURL(blobContent);
+            downloadFile(blobUrl, 'data.json');
+        }
+    }
     setColor(color) {
         this.color = color;
     }

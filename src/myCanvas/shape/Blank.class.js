@@ -11,5 +11,8 @@ class Blank extends ShapeObject {
         res.color = obj.color;
         return res;
     }
+    toJson() {
+        return null;
+    }
 }
 export default Blank;
