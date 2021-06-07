@@ -1,15 +1,5 @@
 <template>
-  <canvas
-    id="Canvas"
-    width="800"
-    height="600"
-    @mousedown="canvasDown($event)"
-    @mousemove="canvasMove($event)"
-    @mouseup="canvasUp($event)"
-    @mouseleave="canvasLeave($event)"
-    @keydown="shiftDown($event)"
-    @keypress="shiftUp($event)"
-  ></canvas>
+  <canvas id="Canvas" width="800" height="600"></canvas>
 </template>
 <script>
 import MyCanvas from "../myCanvas/canvas/MyCanvas.class.js";
@@ -36,26 +26,6 @@ export default {
     myCanvas.createLine(400, 500, 200, 300, false);
     myCanvas.createLine(400, 500, 200, 300, true);
     myCanvas.drawAll();
-  },
-  methods: {
-    canvasDown(event) {
-      this.myCanvas.mouseDown(event.clientX, event.clientY);
-    },
-    canvasMove(event) {
-      this.myCanvas.mouseMove(event.clientX, event.clientY);
-    },
-    canvasUp(event) {
-      this.myCanvas.mouseUp(event.clientX, event.clientY);
-    },
-    canvasLeave(event) {
-      this.myCanvas.mouseLeave(event.clientX, event.clientY);
-    },
-    shiftDown(event) {
-      console.log(event);
-    },
-    shiftUp(event) {
-      console.log(event);
-    },
   },
 };
 </script>

@@ -46,6 +46,130 @@ class MyCanvas {
         })
         this.canvas.style.cursor = 'se-resize';
         this.canvasStack = [[]];
+
+        function mouseDown(e) {
+            let x = e.clientX;
+            let y = e.clientY;
+            this.status = 1;
+            this.mouseDownX = x;
+            this.mouseDownY = y;
+
+            if (!this.resizeing) {
+                let sig = false;
+                if (this.currentSelected.size > 1) {
+                    // 当前有多个正在选中，判断点击位置所在图元是否为选中图元
+                    this.currentSelected.forEach((item) => {
+                        if (item.catch(x, y)) {
+                            if (this.shiftPressed) {
+                                item.isSelected = false;
+                                this.currentSelected.delete(item);
+                                sig = true;
+                                this.status = 0;
+                            }
+                            else {
+                                sig = true;
+                                this.status = 2;
+                            }
+                        }
+                    })
+                }
+                // 当前点击位置所在图元不在选中列表里
+                if (!sig) {
+                    // 当前点击位置有图元
+                    for (let i = this.displayList.length - 1; i > 0; i--) {
+                        if (!sig && this.displayList[i].catch(x, y)) {
+                            if (!this.shiftPressed) {
+                                this.currentSelected.forEach((item) => {
+                                    item.isSelected = false;
+                                })
+                                this.currentSelected.clear();
+                            }
+                            this.displayList[i].isSelected = true;
+                            this.currentSelected.add(this.displayList[i]);
+                            sig = true;
+                            this.status = 2;
+                        }
+                    }
+                    // 当前点击位置没有图元，应该显示拖拽选择框
+                    if (!sig) {
+                        if (this.shiftPressed) {
+                            this.status = 0;
+                        }
+                        else {
+                            this.status = 5;
+                            this.displayList[0].isSelected = true;
+                            this.displayList[0].setFrame(x, x, y, y);
+                        }
+                    }
+                }
+            }
+            this.drawAll();
+        }
+        function mouseMove(e) {
+            let x = e.clientX;
+            let y = e.clientY;
+            let sig = false;
+            this.currentSelected.forEach((item) => {
+                if (item.catchRightBottom(x, y)) {
+                    sig = true;
+                    this.canvas.style.cursor = 'se-resize';
+                    this.resizeing = true;
+                }
+            })
+            if (!sig) {
+                this.canvas.style.cursor = 'auto';
+                this.resizeing = false;
+            }
+            if (this.status === 2 || this.status === 3) {
+                this.status = 3;
+                this.currentSelected.forEach((item) => {
+                    item.setFrameAdd(x - this.mouseDownX, x - this.mouseDownX, y - this.mouseDownY, y - this.mouseDownY);
+                })
+                this.mouseDownX = x;
+                this.mouseDownY = y;
+                this.drawAll();
+            }
+            else if (this.status === 5 || this.status === 6) {
+                this.status = 6;
+                let t = this.displayList[0];
+                t.setFrame(t.left, x, t.top, y);
+                this.drawAll();
+            }
+        }
+        function mouseUp(e) {
+            let x = e.clientX;
+            let y = e.clientY;
+            if (!this.resizeing) {
+                if (this.status === 2 || this.status === 3) {
+                    this.status = 0;
+                    this.save();
+                }
+                else if (this.status === 5 || this.status === 6) {
+                    this.status = 0;
+                    this.currentSelected.clear();
+                    for (let i = 1; i < this.displayList.length; i++) {
+                        let item = this.displayList[i];
+                        if (item.catchedByRect(Math.min(x, this.mouseDownX), Math.max(x, this.mouseDownX), Math.min(y, this.mouseDownY), Math.max(y, this.mouseDownY))) {
+                            item.isSelected = true;
+                            this.currentSelected.add(item);
+                        }
+                        else {
+                            item.isSelected = false;
+                        }
+                    }
+                    this.displayList[0].isSelected = false;
+                }
+            }
+            this.drawAll();
+        }
+        let mouseDownFunc = mouseDown.bind(this);
+        let mouseMoveFunc = mouseMove.bind(this);
+        let mouseUpFunc = mouseUp.bind(this);
+        // 绑定四种基本操作
+        this.window.addEventListener('mousedown', mouseDownFunc);
+        this.window.addEventListener('mousemove', mouseMoveFunc);
+        this.window.addEventListener('mouseup', mouseUpFunc);
+        this.window.addEventListener('mouseleave', mouseUpFunc);
     }
     save() {
         console.log('save', this.canvasStack.length);
